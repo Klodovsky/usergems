@@ -24476,21 +24476,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      'content': '',
-      'maxChar': 281
+      content: "",
+      maxChar: 281
     };
   },
   methods: {
     postTweet: function postTweet() {
-      this.$inertia.post('/tweets', {
-        'content': this.content
+      this.$inertia.post("/tweets", {
+        content: this.content
       }, {
         preserveState: false
       });
     },
     resizeTweetTextarea: function resizeTweetTextarea() {
-      var textarea = this.$refs['tweetTextarea'];
-      textarea.style.height = 'initial';
+      var textarea = this.$refs["tweetTextarea"];
+      textarea.style.height = "initial";
       textarea.style.height = "".concat(textarea.scrollHeight, "px");
     }
   },
@@ -29030,7 +29030,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["text-sm text-gray-400 font-thin", {
       'text-red-500': $options.calculateRemainingChar < 0
     }])
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.calculateRemainingChar) + " remaining caracters", 3
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.calculateRemainingChar) + " remaining caracters ", 3
   /* TEXT, CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_button_vue, {
     disabled: !$options.canSubmit,
@@ -34364,7 +34364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbutton[data-v-7b4ac49e]:disabled {\n        opacity: 50%;\n        cursor: not-allowed;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbutton[data-v-7b4ac49e]:disabled {\n  opacity: 50%;\n  cursor: not-allowed;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

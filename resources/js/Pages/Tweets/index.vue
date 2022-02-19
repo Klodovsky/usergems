@@ -99,7 +99,7 @@
             >
              <inertia-link
             @click="retweet(tweet)"
-
+              style="margin-left: 3px;"
               as="button"
               class="
                 bg-white

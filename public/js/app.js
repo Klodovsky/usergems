@@ -29474,6 +29474,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: function onClick($event) {
             return $options.retweet(tweet);
           },
+          style: {
+            "margin-left": "3px"
+          },
           as: "button",
           "class": "bg-white text-blue-500 cursor-pointer px-5 py-2 hover:text-white border border-blue-500 leading-tight hover:bg-blue-500 rounded-full font-extrabold transition-all duration-300",
           "preserve-scroll": ""

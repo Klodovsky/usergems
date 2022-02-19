@@ -11,9 +11,7 @@ class UsersController extends Controller
 {
     public function index(){
 
-        $users = User::all()->except(auth()->user());
-        return Inertia::render('Users/index',[
-            'users' => $users
-        ]);
+        return User::all();
+
     }
 }

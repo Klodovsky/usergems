@@ -39,7 +39,7 @@ class TweetController extends Controller
         ]);
 
         Tweet::create([
-            'user_id' => $request->input('user_id') !== null &&auth()->user()->is_admin=1 ? $request->input('user_id') : auth()->user()->id,
+            'user_id' => $request->input('user_id') !== null && auth()->user()->is_admin=1 ? $request->input('user_id') : auth()->user()->id,
             'content' => $request->input('content'),
             'is_retweeted' => $request->input('is_retweeted') ? 1 : 0 ,
             'origin_tweet_id' => $request->input('is_retweeted')  ? $request->input('origin_tweet_id') : null

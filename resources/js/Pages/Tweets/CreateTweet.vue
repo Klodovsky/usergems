@@ -17,9 +17,21 @@
           "
           v-model="content"
         ></textarea>
-        <span class="my-5 text-red-500" v-if="$page.errors">
-                    {{ $page.errors.content }}
-                </span>
+
+        <div v-if="$page.props.user.is_admin == 1">
+          <label><strong>Tweet as :</strong></label>
+          <select class="form-control" :required="true">
+            <option
+              v-for="user in users"
+              @click="selectUser(user)"
+              v-bind:key="user.id"
+              v-bind:value="user.id"
+              :selected="user"
+            >
+              {{ user.name }}
+            </option>
+          </select>
+        </div>
         <div class="flex items-center space-x-4 justify-end mt-3">
           <p
             class="text-sm text-gray-400 font-thin"
@@ -40,22 +52,50 @@
 
 <script>
 import Button from "../../Jetstream/Button.vue";
+import vSelect from "vue-select";
+
 export default {
-  components: { ButtonVue: Button },
+  components: { ButtonVue: Button, vSelect },
   data() {
     return {
       content: "",
       maxChar: 281,
+      users: [],
+      vSelectUser: null,
     };
   },
   methods: {
     postTweet() {
+      console.log("this.selected", this.selected);
       this.$inertia.post(
         "/tweets",
-        { content: this.content,
-          is_retweeted : false, },
+        {
+          content: this.content,
+          user_id: this.selected ? this.selected : null,
+        },
         { preserveState: false }
       );
+    },
+
+    getUsers() {
+      var vm = this;
+
+      axios
+        .get("/users")
+        .then(function (response) {
+          console.log(response);
+          vm.users = response.data.map((el) => {
+            return { name: el.name, id: el.id };
+          });
+          console.log("vm.users", vm.users);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    selectUser(user) {
+      console.log("user", user);
+      this.selectUser = user.id;
     },
     resizeTweetTextarea() {
       let textarea = this.$refs["tweetTextarea"];
@@ -70,6 +110,9 @@ export default {
     canSubmit() {
       return this.content.length && this.calculateRemainingChar >= 0;
     },
+  },
+  created() {
+    this.getUsers();
   },
 };
 </script>

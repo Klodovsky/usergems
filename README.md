@@ -31,13 +31,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-* Signup, login and logout
-* Tweeting
-* Following
-* Profile page that shows the tweet of each individual user
-* Page that shows the tweets of the people I follow
-* Retweeting of other tweets
-* Tweet as Admin
+My own version of twitter containing the basic features of Twitter such as tweeting and retweeting,following and unfollowing etc... 
 
 
 
@@ -111,7 +105,7 @@ DB_PASSWORD=4484
 - [x] Tweeting
 - [x] Following
 - [x] Profile page that shows the tweet of each individual user
-- [x]Page that shows the tweets of the people I follow
+- [x] Page that shows the tweets of the people I follow
 - [x] Retweeting of other tweets
 - [x] Tweet as Admin
 - [ ] UI enhancements

@@ -45,10 +45,9 @@
           </div>
           <div v-if="tweet.user.id !== $page.props.user.id" class="w-40">
             <inertia-link
+            @click="follow(tweet.user.id)"
               v-if="!tweet.user.isFollowing"
               as="button"
-              :href="`/follows/${tweet.user.id}`"
-              method="POST"
               class="
                 bg-white
                 text-blue-500
@@ -70,8 +69,7 @@
             <inertia-link
               v-else
               as="button"
-              :href="`/unfollows/${tweet.user.id}`"
-              method="POST"
+             @click="unFollow(tweet.user.id)"
               class="
                 bg-white
                 text-blue-500
@@ -101,13 +99,37 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import TweetCreate from "@/Pages/Tweets/CreateTweet";
+
 export default {
   components: {
     AppLayout,
-    TweetCreate,
+    TweetCreate
   },
   props: {
     tweets: Array,
   },
+  methods: {
+    follow(userId) {
+        let vm = this;
+      axios.post(`/follows/${userId}`)
+  .then(function (response) {
+    console.log(JSON.stringify(vm.tweets));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+    },
+    unFollow(userId) {
+        let vm = this;
+      axios.post(`/unfollows/${userId}`)
+  .then(function (response) {
+    console.log(JSON.stringify(vm.tweets));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+    }
+  },
+
 };
 </script>

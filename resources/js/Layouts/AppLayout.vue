@@ -25,6 +25,9 @@
                                   <jet-nav-link :href="route('tweets.index')" :active="route().current('tweets.index')">
                                     Tweets
                                 </jet-nav-link>
+                                <jet-nav-link :href="route('tweets.followings')" :active="route().current('tweets.followings')">
+                                    Followings
+                                </jet-nav-link>
                             </div>
                         </div>
 
@@ -246,7 +249,6 @@
     import JetNavLink from '@/Jetstream/NavLink.vue'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
-
     export default defineComponent({
         props: {
             title: String,
@@ -260,7 +262,7 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
-            Link,
+            Link
         },
 
         data() {

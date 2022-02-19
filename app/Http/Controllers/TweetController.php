@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tweet;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,12 +17,21 @@ class TweetController extends Controller
 {
     public function index(){
 
-        $tweets = Tweet::orderBy('created_at', 'DESC')->with('user')->get();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->with(['user' => function ($q) {
+            return $q->withCount([
+                'followers as isFollowing' => function ($q) {
+                    return $q
+                        ->where('follower_id', auth()->user()->id);
+                }])
+                ->withCasts(['isFollowing' => 'boolean']);
+        }
+        ])->get();
 
         return Inertia::render('Tweets/index',[
             'tweets' => $tweets
         ]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -36,6 +47,17 @@ class TweetController extends Controller
         ]);
 
         return Redirect::route('tweets.index');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(
+            'App\Models\User',
+            'followings',
+            'following_id',
+            'follower_id'
+        )
+            ->withTimestamps();
     }
 
     public function followings()
@@ -54,8 +76,23 @@ class TweetController extends Controller
                 }
             ])->get();
 
-        return Inertia::render('Tweet/Followings', [
+        return Inertia::render('Tweets/Followings', [
             'followings' => $followings
         ]);
     }
+
+    public function unfollows(User $user)
+    {
+        Auth::user()->followings()->detach($user);
+
+        return redirect()->back();
+    }
+
+    public function follows(User $user)
+    {
+        Auth::user()->followings()->attach($user);
+
+        return redirect()->back();
+    }
+
 }

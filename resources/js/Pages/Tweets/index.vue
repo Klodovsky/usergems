@@ -35,16 +35,23 @@
               >
                 @{{ tweet.user.name }}
               </a>
+
               <span class="font-thin text-gray-400" style="margin: 3px;"
                 > {{tweet.created_at }}</span
               >
+                <span v-if="tweet.is_retweeted == 1"
+                class="text-sm text-gray-900 font-bold hover:text-blue-400"
+                :href="`/profile/${tweet.user.name}`"
+              >
+                Retweeted
+              </span>
 
             </div>
             <div class="text-sm text-gray-400 font-thin">
               {{ tweet.content }}
             </div>
           </div>
-          <div v-if="tweet.user.id !== $page.props.user.id" class="w-40">
+          <div v-if="tweet.user.id !== $page.props.user.id" class="w-40" style="display: inline-table;">
             <inertia-link
             @click="follow(tweet.user.id)"
               v-if="!tweet.user.isFollowing"
@@ -90,7 +97,30 @@
               preserve-scroll
               >Unfollow</inertia-link
             >
+             <inertia-link
+            @click="retweet(tweet)"
+
+              as="button"
+              class="
+                bg-white
+                text-blue-500
+                cursor-pointer
+                px-5
+                py-2
+                hover:text-white
+                border border-blue-500
+                leading-tight
+                hover:bg-blue-500
+                rounded-full
+                font-extrabold
+                transition-all
+                duration-300
+              "
+              preserve-scroll
+              >Retweet</inertia-link
+            >
           </div>
+
         </div>
       </div>
     </div>
@@ -120,7 +150,16 @@ export default {
   .catch(function (error) {
     console.log(error);
   });
-    }
+    },
+     retweet(tweet) {
+      this.$inertia.post(
+        "/tweets",
+        { content: tweet.content,
+          is_retweeted : true,
+          origin_tweet_id : tweet.id},
+        { preserveState: false }
+      );
+    },
   },
 
 };

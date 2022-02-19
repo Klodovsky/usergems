@@ -52,7 +52,8 @@ export default {
     postTweet() {
       this.$inertia.post(
         "/tweets",
-        { content: this.content },
+        { content: this.content,
+          is_retweeted : false, },
         { preserveState: false }
       );
     },

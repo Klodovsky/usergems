@@ -17,7 +17,8 @@ class TweetFactory extends Factory
     public function definition()
     {
         return [
-            'content' => $this->faker->text
+            'content' => $this->faker->text,
+            'is_retweeted' => false
         ];
     }
 }

@@ -85,4 +85,22 @@ class User extends Authenticatable
         )
             ->withTimestamps();
     }
+
+    public function isNot($user)
+    {
+        return $this->id !== $user->id;
+    }
+
+    public function isFollowing($user)
+    {
+        return (bool) $this->following->where('id', $user->id)->count();
+    }
+
+    public function canFollow($user)
+    {
+        if(!$this->isNot($user)) {
+            return false;
+        }
+        return !$this->isFollowing($user);
+    }
 }

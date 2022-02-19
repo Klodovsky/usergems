@@ -19,15 +19,18 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                                <!-- <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
-                                </jet-nav-link>
+                                </jet-nav-link> -->
                                   <jet-nav-link :href="route('tweets.index')" :active="route().current('tweets.index')">
-                                    Tweets
+                                    Dashboard
                                 </jet-nav-link>
                                 <jet-nav-link :href="route('tweets.followings')" :active="route().current('tweets.followings')">
                                     Followings
                                 </jet-nav-link>
+                               <!-- <jet-nav-link :href="route('tweets.profile')" :active="route().current('tweets.profile')">
+                                    Profile
+                                </jet-nav-link> -->
                             </div>
                         </div>
 

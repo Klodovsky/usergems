@@ -27,13 +27,18 @@
             class="h-16 w-16 object-cover rounded-full"
             :src="tweet.user.profile_photo_url"
           />
-          <div class="flex flex-col w-2/3">
-            <span class="text-sm text-gray-900 font-bold"
-              >{{ tweet.user.name }}
+           <div class="flex flex-col w-2/3">
+            <div>
+              <a
+                class="text-sm text-gray-900 font-bold hover:text-blue-400"
+                :href="`/profile/${tweet.user.name}`"
+              >
+                {{ tweet.user.name }}
+              </a>
               <span class="font-thin text-gray-400"
-                >· le {{ tweet.created_at }}</span
-              ></span
-            >
+                >· on {{ tweet.created_at }}</span
+              >
+            </div>
             <div class="text-sm text-gray-400 font-thin">
               {{ tweet.content }}
             </div>
@@ -59,7 +64,7 @@
                 duration-300
               "
               preserve-scroll
-              >Ne Plus Suivre</inertia-link
+              >Unfollow</inertia-link
             >
           </div>
         </div>

@@ -36,7 +36,7 @@
                 {{ tweet.user.name }}
               </a>
               <span class="font-thin text-gray-400"
-                >· le {{ tweet.created_at }}</span
+                >· on {{ tweet.created_at }}</span
               >
             </div>
             <div class="text-sm text-gray-400 font-thin">
@@ -100,6 +100,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import TweetCreate from "@/Pages/Tweets/CreateTweet";
 
+
 export default {
   components: {
     AppLayout,
@@ -109,16 +110,7 @@ export default {
     tweets: Array,
   },
   methods: {
-    follow(userId) {
-        let vm = this;
-      axios.post(`/follows/${userId}`)
-  .then(function (response) {
-    console.log(JSON.stringify(vm.tweets));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-    },
+
     unFollow(userId) {
         let vm = this;
       axios.post(`/unfollows/${userId}`)

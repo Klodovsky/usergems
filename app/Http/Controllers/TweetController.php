@@ -94,5 +94,24 @@ class TweetController extends Controller
 
         return redirect()->back();
     }
+    public function profile(User $user)
+    {
+        $user->loadCount([
+            'followers as isFollowing' => function ($q) {
+                return $q->where('follower_id', '=', auth()->user()->id)
+                    ->withCasts(['isFollowing' => 'boolean']);
+            },
+            'followings as is_following_you' => function ($q) {
+                return $q->where('following_id', auth()->user()->id);
+            }
+            ]);
+
+        $tweets = $user->tweets;
+
+        return Inertia::render('Tweets/Profile', [
+            'profileUser' => $user,
+            'tweets' => $tweets
+        ]);
+    }
 
 }

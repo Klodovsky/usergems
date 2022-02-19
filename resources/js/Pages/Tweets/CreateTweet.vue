@@ -20,10 +20,9 @@
 
         <div v-if="$page.props.user.is_admin == 1">
           <label><strong>Tweet as :</strong></label>
-          <select class="form-control" :required="true">
+          <select @change="selectUser($event)" class="form-control" :required="true">
             <option
               v-for="user in users"
-              @click="selectUser(user)"
               v-bind:key="user.id"
               v-bind:value="user.id"
               :selected="user"
@@ -66,12 +65,12 @@ export default {
   },
   methods: {
     postTweet() {
-      console.log("this.selected", this.selected);
+      console.log("this.selected", this.vSelectUser);
       this.$inertia.post(
         "/tweets",
         {
           content: this.content,
-          user_id: this.selected ? this.selected : null,
+          user_id: this.vSelectUser ? this.vSelectUser : null,
         },
         { preserveState: false }
       );
@@ -87,15 +86,19 @@ export default {
           vm.users = response.data.map((el) => {
             return { name: el.name, id: el.id };
           });
-          console.log("vm.users", vm.users);
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    selectUser(user) {
-      console.log("user", user);
-      this.selectUser = user.id;
+    selectUser(event) {
+      console.log(event.target.value);
+      this.vSelectUser = event.target.value;
+    },
+        handleChange(e) {
+        if(e.target.options.selectedIndex > -1) {
+            console.log(e.target.options[e.target.options.selectedIndex].dataset.foo)
+        }
     },
     resizeTweetTextarea() {
       let textarea = this.$refs["tweetTextarea"];

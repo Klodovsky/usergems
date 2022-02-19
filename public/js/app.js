@@ -24488,10 +24488,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postTweet: function postTweet() {
-      console.log("this.selected", this.selected);
+      console.log("this.selected", this.vSelectUser);
       this.$inertia.post("/tweets", {
         content: this.content,
-        user_id: this.selected ? this.selected : null
+        user_id: this.vSelectUser ? this.vSelectUser : null
       }, {
         preserveState: false
       });
@@ -24506,14 +24506,18 @@ __webpack_require__.r(__webpack_exports__);
             id: el.id
           };
         });
-        console.log("vm.users", vm.users);
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    selectUser: function selectUser(user) {
-      console.log("user", user);
-      this.selectUser = user.id;
+    selectUser: function selectUser(event) {
+      console.log(event.target.value);
+      this.vSelectUser = event.target.value;
+    },
+    handleChange: function handleChange(e) {
+      if (e.target.options.selectedIndex > -1) {
+        console.log(e.target.options[e.target.options.selectedIndex].dataset.foo);
+      }
     },
     resizeTweetTextarea: function resizeTweetTextarea() {
       var textarea = this.$refs["tweetTextarea"];
@@ -29124,22 +29128,18 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_5 = {
-  "class": "form-control",
-  required: true
-};
-var _hoisted_6 = ["onClick", "value", "selected"];
-var _hoisted_7 = {
+var _hoisted_5 = ["value", "selected"];
+var _hoisted_6 = {
   "class": "flex items-center space-x-4 justify-end mt-3"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tweet");
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Tweet");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_button_vue = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("button-vue");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.postTweet && $options.postTweet.apply($options, arguments);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
@@ -29154,20 +29154,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.content]]), _ctx.$page.props.user.is_admin == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.users, function (user) {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.content]]), _ctx.$page.props.user.is_admin == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    onChange: _cache[2] || (_cache[2] = function ($event) {
+      return $options.selectUser($event);
+    }),
+    "class": "form-control",
+    required: true
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.users, function (user) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      onClick: function onClick($event) {
-        return $options.selectUser(user);
-      },
       key: user.id,
       value: user.id,
       selected: user
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.name), 9
     /* TEXT, PROPS */
-    , _hoisted_6);
+    , _hoisted_5);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  ))], 32
+  /* HYDRATE_EVENTS */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["text-sm text-gray-400 font-thin", {
       'text-red-500': $options.calculateRemainingChar < 0
     }])
@@ -29178,7 +29183,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "bg-blue-500 hover:bg-blue-800 rounded-full font-extrabold"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_8];
+      return [_hoisted_7];
     }),
     _: 1
     /* STABLE */

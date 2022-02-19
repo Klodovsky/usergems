@@ -33,17 +33,22 @@ class TweetController extends Controller
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'user_id' => ['exists:users,id'],
             'content' => ['required', 'max:281']
         ]);
-
-        Tweet::create([
-            'user_id' => $request->input('user_id') !== null && auth()->user()->is_admin=1 ? $request->input('user_id') : auth()->user()->id,
+        $input = [
+            'user_id' =>  auth()->user()->id,
             'content' => $request->input('content'),
             'is_retweeted' => $request->input('is_retweeted') ? 1 : 0 ,
             'origin_tweet_id' => $request->input('is_retweeted')  ? $request->input('origin_tweet_id') : null
-        ]);
+        ];
+        if($request->input('user_id') != null && auth()->user()->is_admin ==1   )
+            {
+                $input['user_id'] = $request->input('user_id');
+            }
+        Tweet::create($input);
 
         return Redirect::route('tweets.index');
     }

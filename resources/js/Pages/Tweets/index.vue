@@ -6,6 +6,8 @@
             </h2>
         </template>
 
+        <create-tweet></create-tweet>
+
         <div>
             <div class="py-12">
             <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
@@ -16,7 +18,7 @@
                         <a class="text-sm text-gray-900 font-bold hover:text-blue-400" :href="`/profile/${tweet.user.name}`">
                             {{ tweet.user.name }}
                         </a>
-                        <span class="font-thin text-gray-400">· le {{ tweet.created_at }}</span>
+                        <span class="font-thin text-gray-400">· on {{ tweet.created_at }}</span>
                     </div>
                     <div class="text-sm text-gray-400 font-thin">{{ tweet.content }}</div>
                     </div>
@@ -30,12 +32,14 @@
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import CreateTweet from '@/Pages/Tweets/CreateTweet.vue'
 
     export default defineComponent({
         props: ['tweets'],
 
         components: {
             AppLayout,
+            CreateTweet
 
         },
     })

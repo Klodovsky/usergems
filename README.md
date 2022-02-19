@@ -33,6 +33,7 @@
 
 My own version of twitter containing the basic features of Twitter such as tweeting and retweeting,following and unfollowing etc... 
 
+![image](https://user-images.githubusercontent.com/55706752/154817184-d22c5577-1e20-486b-a0e1-e151da4a5130.png)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>

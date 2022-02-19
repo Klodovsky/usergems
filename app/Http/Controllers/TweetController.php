@@ -15,7 +15,7 @@ class TweetController extends Controller
 {
     public function index(){
 
-        $tweets = Tweet::with('user')->get();
+        $tweets = Tweet::orderBy('created_at', 'DESC')->with('user')->get();
 
         return Inertia::render('Tweets/index',[
             'tweets' => $tweets
@@ -36,5 +36,26 @@ class TweetController extends Controller
         ]);
 
         return Redirect::route('tweets.index');
+    }
+
+    public function followings()
+    {
+        $followings = Tweet::with('user')
+            ->whereIn('user_id', auth()->user()->followings->pluck('id'))
+            ->orderBy('created_at', 'DESC')
+            ->with([
+                'user' => function ($q) {
+                    return $q->withCount([
+                        'followings as isFollowingUser' => function ($q) {
+                            return $q
+                                ->where('following_id', '=', auth()->user()->id);
+                        }])
+                        ->withCasts(['isFollowingUser' => 'boolean']);
+                }
+            ])->get();
+
+        return Inertia::render('Tweet/Followings', [
+            'followings' => $followings
+        ]);
     }
 }

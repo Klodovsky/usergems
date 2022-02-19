@@ -17,9 +17,9 @@
           "
           v-model="content"
         ></textarea>
-        <!-- <span class="my-5 text-red-500" v-if="$page.errors.content">
+        <span class="my-5 text-red-500" v-if="$page.errors">
                     {{ $page.errors.content }}
-                </span> -->
+                </span>
         <div class="flex items-center space-x-4 justify-end mt-3">
           <p
             class="text-sm text-gray-400 font-thin"

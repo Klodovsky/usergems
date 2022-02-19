@@ -33,5 +33,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::post('/follows/{user:id}', [\App\Http\Controllers\TweetController::class, 'follows'])->name('tweets.followings.store');
     Route::get('/profile/{user:name}', [\App\Http\Controllers\TweetController::class, 'profile'])->name('tweets.profile');
     Route::get('/users', [\App\Http\Controllers\UsersController::class, 'index'])->name('users.index');
+    Route::get('/auth_user', [\App\Http\Controllers\UsersController::class, 'getAuthUser'])->name('users.getAuthUser');
+
 
 });

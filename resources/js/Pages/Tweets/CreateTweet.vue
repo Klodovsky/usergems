@@ -20,7 +20,7 @@
 
         <div v-if="$page.props.user.is_admin == 1">
           <label><strong>Tweet as :</strong></label>
-          <select @change="selectUser($event)" class="form-control" :required="true">
+          <select @change="selectUser($event,$page.props.user.id)" class="form-control" :required="true">
             <option
               v-for="user in users"
               v-bind:key="user.id"
@@ -60,7 +60,7 @@ export default {
       content: "",
       maxChar: 281,
       users: [],
-      vSelectUser: null,
+      vSelectUser:null,
     };
   },
   methods: {
@@ -70,7 +70,7 @@ export default {
         "/tweets",
         {
           content: this.content,
-          user_id: this.vSelectUser ? this.vSelectUser : null,
+          user_id: this.vSelectUser,
         },
         { preserveState: false }
       );
@@ -91,14 +91,23 @@ export default {
           console.log(error);
         });
     },
-    selectUser(event) {
-      console.log(event.target.value);
-      this.vSelectUser = event.target.value;
+      getAuth() {
+      var vm = this;
+
+      axios
+        .get("/auth_user")
+        .then(function (response) {
+          console.log("response",response);
+          vm.vSelectUser = response.data.id;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
-        handleChange(e) {
-        if(e.target.options.selectedIndex > -1) {
-            console.log(e.target.options[e.target.options.selectedIndex].dataset.foo)
-        }
+    selectUser(event,id) {
+      console.log("eventtargetvalue",event.target.value);
+       console.log("id",id);
+      this.vSelectUser = event.target.value;
     },
     resizeTweetTextarea() {
       let textarea = this.$refs["tweetTextarea"];
@@ -116,6 +125,7 @@ export default {
   },
   created() {
     this.getUsers();
+    this.getAuth();
   },
 };
 </script>

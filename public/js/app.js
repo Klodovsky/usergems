@@ -24491,7 +24491,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("this.selected", this.vSelectUser);
       this.$inertia.post("/tweets", {
         content: this.content,
-        user_id: this.vSelectUser ? this.vSelectUser : null
+        user_id: this.vSelectUser
       }, {
         preserveState: false
       });
@@ -24510,14 +24510,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     },
-    selectUser: function selectUser(event) {
-      console.log(event.target.value);
-      this.vSelectUser = event.target.value;
+    getAuth: function getAuth() {
+      var vm = this;
+      axios.get("/auth_user").then(function (response) {
+        console.log("response", response);
+        vm.vSelectUser = response.data.id;
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
-    handleChange: function handleChange(e) {
-      if (e.target.options.selectedIndex > -1) {
-        console.log(e.target.options[e.target.options.selectedIndex].dataset.foo);
-      }
+    selectUser: function selectUser(event, id) {
+      console.log("eventtargetvalue", event.target.value);
+      console.log("id", id);
+      this.vSelectUser = event.target.value;
     },
     resizeTweetTextarea: function resizeTweetTextarea() {
       var textarea = this.$refs["tweetTextarea"];
@@ -24535,6 +24540,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getUsers();
+    this.getAuth();
   }
 });
 
@@ -29156,7 +29162,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* HYDRATE_EVENTS, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.content]]), _ctx.$page.props.user.is_admin == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     onChange: _cache[2] || (_cache[2] = function ($event) {
-      return $options.selectUser($event);
+      return $options.selectUser($event, _ctx.$page.props.user.id);
     }),
     "class": "form-control",
     required: true

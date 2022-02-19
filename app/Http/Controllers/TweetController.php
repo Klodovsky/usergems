@@ -33,7 +33,7 @@ class TweetController extends Controller
 
     public function store(Request $request)
     {
-        
+        // dd(auth()->user()->is_admin);
         $request->validate([
             'user_id' => ['exists:users,id'],
             'content' => ['required', 'max:281']
@@ -44,7 +44,7 @@ class TweetController extends Controller
             'is_retweeted' => $request->input('is_retweeted') ? 1 : 0 ,
             'origin_tweet_id' => $request->input('is_retweeted')  ? $request->input('origin_tweet_id') : null
         ];
-        if($request->input('user_id') != null && auth()->user()->is_admin ==1   )
+        if($request->input('user_id') != null && auth()->user()->is_admin ==1)
             {
                 $input['user_id'] = $request->input('user_id');
             }

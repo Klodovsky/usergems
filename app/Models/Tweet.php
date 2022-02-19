@@ -18,6 +18,6 @@ class Tweet extends Model
     }
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::parse($date)->format('d M. Y');
+        return Carbon::parse($date)->diffForHumans();
     }
 }

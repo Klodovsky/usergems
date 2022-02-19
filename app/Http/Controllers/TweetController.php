@@ -26,7 +26,6 @@ class TweetController extends Controller
                 ->withCasts(['isFollowing' => 'boolean']);
         }
         ])->get();
-
         return Inertia::render('Tweets/index',[
             'tweets' => $tweets
         ]);
@@ -42,8 +41,6 @@ class TweetController extends Controller
         Tweet::create([
             'user_id' => auth()->user()->id,
             'content' => $request->input('content'),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
         ]);
 
         return Redirect::route('tweets.index');

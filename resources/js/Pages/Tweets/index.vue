@@ -33,11 +33,12 @@
                 class="text-sm text-gray-900 font-bold hover:text-blue-400"
                 :href="`/profile/${tweet.user.name}`"
               >
-                {{ tweet.user.name }}
+                @{{ tweet.user.name }}
               </a>
-              <span class="font-thin text-gray-400"
-                >· on {{ tweet.created_at }}</span
+              <span class="font-thin text-gray-400" style="margin: 3px;"
+                > {{tweet.created_at }}</span
               >
+
             </div>
             <div class="text-sm text-gray-400 font-thin">
               {{ tweet.content }}
@@ -99,7 +100,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import TweetCreate from "@/Pages/Tweets/CreateTweet";
-
+import moment from 'moment'
 
 export default {
   components: {
@@ -110,12 +111,11 @@ export default {
     tweets: Array,
   },
   methods: {
-
+    moment,
     unFollow(userId) {
         let vm = this;
       axios.post(`/unfollows/${userId}`)
   .then(function (response) {
-    console.log(JSON.stringify(vm.tweets));
   })
   .catch(function (error) {
     console.log(error);
